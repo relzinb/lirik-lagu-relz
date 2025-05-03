@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Lirik Lagu Tanpa Cinta - Tiara Andini</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+  body {
+    margin: 0; padding: 20px;
+    background: linear-gradient(135deg, #ffc1cc, #ffeeee);
+    font-family: 'Comfortaa', cursive, sans-serif;
+    color: #663344;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .container {
+    background: #fff0f6;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+    max-width: 360px;
+    width: 100%;
+    padding: 30px 25px 140px; /* extra padding for animations */
+    text-align: center;
+    user-select: none;
+    position: relative;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+  h1 {
+    margin-bottom: 25px;
+    color: #e91e63;
+    font-size: 1.9rem;
+  }
+  ul.lyrics {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.lyrics li {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 10px 0;
+    border-radius: 12px;
+    padding: 8px 14px;
+    color: #a64f78;
+    transition: all 0.4s ease;
+    opacity: 0.5;
+  }
+  ul.lyrics li.active {
+    background: #ff89b3;
+    color: #fff;
+    font-weight: 700;
+    animation: bounce 1.2s ease-in-out infinite;
+    box-shadow: 0 0 14px rgba(255, 117, 155, 0.9);
+    opacity: 1;
+  }
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+      text-shadow: 0 0 10px #ff4d83;
+    }
+    50% {
+      transform: translateY(-8px);
+      text-shadow: 0 0 20px #e91e63;
+    }
+  }
+  /* Footer text */
+  .footer-text {
+    margin-top: 20px;
+    color: #a64f78;
+    font-weight: 700;
+    font-family: monospace, monospace;
+    letter-spacing: 0.2em;
+    font-size: 1.1rem;
+  }
+
+  /* Stickman container */
+  .stickman-container {
+    position: fixed;
+    bottom: 16px;
+    width: 100%;
+    max-width: 360px;
+    height: 120px;
+    pointer-events: none;
+    user-select: none;
+    z-index: 20;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  /* Common stickman styles */
+  .stickman {
+    position: absolute;
+    width: 40px;
+    height: 80px;
+    top: 20px;
+    transition: transform 4s ease, opacity 4s ease;
+  }
+
+  /* Female Stickman (pink colors) */
+  .stickman.female .head {
+    background: #e91e63;
+    box-shadow: 0 0 6px rgba(233, 30, 99, 0.8);
+    border-radius: 50% / 60% 60% 45% 45%;
+    clip-path: ellipse(60% 80% at 50% 50%);
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+  }
+  .stickman.female .body {
+    background: #d81b60;
+    border-radius: 20% 20% 50% 50% / 60% 60% 40% 40%;
+    border: none;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 12px;
+    height: 42px;
+    transform: translateX(-50%);
+  }
+  .stickman.female .arm-left, .stickman.female .arm-right {
+    background: #d81b60;
+    border-radius: 10px;
+  }
+  .stickman.female .leg-left, .stickman.female .leg-right {
+    background: #d81b60;
+    border-radius: 8px;
+  }
+
+  /* Male Stickman (purple colors) */
+  .stickman.male .head {
+    background: #7b1fa2;
+    box-shadow: 0 0 6px rgba(123, 31, 162, 0.8);
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+  }
+  .stickman.male .body {
+    background: #6a1b9a;
+    border-radius: 5px;
+    border: none;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 8px;
+    height: 38px;
+    transform: translateX(-50%);
+  }
+  .stickman.male .arm-left, .stickman.male .arm-right {
+    background: #6a1b9a;
+    border-radius: 5px;
+  }
+  .stickman.male .leg-left, .stickman.male .leg-right {
+    background: #6a1b9a;
+    border-radius: 5px;
+  }
+
+  /* Arms and Legs animations */
+  @keyframes arm-wave-left {
+    0%, 100% { transform: rotate(20deg); }
+    50% { transform: rotate(45deg); }
+  }
+  @keyframes arm-wave-right {
+    0%, 100% { transform: rotate(-20deg); }
+    50% { transform: rotate(-45deg); }
+  }
+  @keyframes leg-move-left {
+    0%, 100% { transform: rotate(15deg); }
+    50% { transform: rotate(-15deg); }
+  }
+  @keyframes leg-move-right {
+    0%, 100% { transform: rotate(-15deg); }
+    50% { transform: rotate(15deg); }
+  }
+  .arm-left {
+    position: absolute;
+    top: 25px;
+    width: 20px;
+    height: 6px;
+    left: 0;
+    border-radius: 3px;
+    transform-origin: center;
+    animation: arm-wave-left 2s ease-in-out infinite;
+  }
+  .arm-right {
+    position: absolute;
+    top: 25px;
+    width: 20px;
+    height: 6px;
+    right: 0;
+    border-radius: 3px;
+    transform-origin: center;
+    animation: arm-wave-right 2s ease-in-out infinite;
+  }
+  .leg-left {
+    position: absolute;
+    top: 55px;
+    width: 8px;
+    height: 25px;
+    left: 6px;
+    border-radius: 4px;
+    transform-origin: top center;
+    animation: leg-move-left 2s ease-in-out infinite;
+  }
+  .leg-right {
+    position: absolute;
+    top: 55px;
+    width: 8px;
+    height: 25px;
+    right: 6px;
+    border-radius: 4px;
+    transform-origin: top center;
+    animation: leg-move-right 2s ease-in-out infinite;
+  }
+
+  /* Stickman 1 female center static */
+  .stickman1 {
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+  }
+
+  /* Stickman 2 male walk-in from left to near center */
+  .stickman2 {
+    left: 0;
+    transform: translateX(-120vw);
+    opacity: 1;
+    z-index: 7;
+  }
+  .walk-in {
+    animation: walk-in-center 8s forwards ease-in-out;
+  }
+  @keyframes walk-in-center {
+    0% {
+      transform: translateX(-120vw);
+    }
+    100% {
+      transform: translateX(calc(50vw - 62%)); /* Adjust to be closer to female */
+    }
+  }
+  /* Stickman 2 walk out to right */
+  .walk-out-right {
+    animation: walk-out-right-anim 4s forwards ease-in;
+  }
+  @keyframes walk-out-right-anim {
+    0% {
+      transform: translateX(calc(50vw - 62%));
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(120vw);
+      opacity: 0;
+    }
+  }
+  /* Stickman 1 (female) stays center */
+  .female-stay {
+    transition: none !important;
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+  /* Container sway when together */
+  .stickman-container.together {
+    animation: sway 4s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+
+  /* Heart effect container */
+  .heart-container {
+    position: fixed;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: center bottom;
+    pointer-events: none;
+    z-index: 35;
+    filter: drop-shadow(0 0 5px #e91e63);
+    transition: transform 0.5s ease;
+  }
+  .heart {
+    width: 72px;
+    height: 64px;
+    position: relative;
+    transform: scale(1);
+  }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 36px;
+    height: 58px;
+    background: #e91e63;
+    border-radius: 36px 36px 0 0;
+    top: 0;
+    left: 18px;
+  }
+  .heart::after {
+    left: 0;
+    transform: rotate(-45deg);
+    transform-origin: 100% 100%;
+  }
+  .heart::before {
+    transform: rotate(45deg);
+    transform-origin: 0 100%;
+  }
+  /* Crack Lines */
+  .crack {
+    position: absolute;
+    top: 8px;
+    left: 35px;
+    height: 48px;
+    width: 3px;
+    background: #fff0f5;
+    clip-path: polygon(0 0, 100% 10%, 70% 35%, 100% 45%, 60% 65%, 90% 90%, 25% 100%, 20% 85%, 50% 70%, 10% 35%, 35% 15%);
+    animation: crack-pulse 1.5s infinite alternate;
+  }
+  @keyframes crack-pulse {
+    0% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0.3; transform: translateX(2px); }
+  }
+  /* Heart pop */
+  .heart-pop {
+    animation: heart-pop 0.5s forwards ease;
+  }
+  @keyframes heart-pop {
+    0% {
+      transform: translateX(-50%) scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: translateX(-50%) scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 400px) {
+    .container {
+      max-width: 320px;
+      padding-bottom: 150px;
+    }
+    .stickman-container {
+      max-width: 320px;
+      height: 110px;
+    }
+    .stickman {
+      width: 36px;
+      height: 72px;
+      top: 20px;
+    }
+    .head {
+      width: 18px;
+      height: 18px;
+    }
+    .body {
+      width: 5px;
+      height: 32px;
+      top: 18px;
+    }
+    .arm-left, .arm-right {
+      width: 18px;
+      height: 5px;
+      top: 23px;
+    }
+    .leg-left, .leg-right {
+      width: 7px;
+      height: 22px;
+      top: 49px;
+    }
+    .footer-text {
+      font-size: 1rem;
+    }
+    .heart-container {
+      bottom: 150px;
+      width: 48px;
+      height: 42px;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="container" role="main" aria-label="Lirik Lagu Tanpa Cinta dari Tiara Andini">
+  <h1>Tanpa Cinta - Tiara Andini</h1>
+  <ul class="lyrics" id="lyricsList" aria-live="polite" aria-atomic="true">
+    <li>Aku ingin kau menerima seluruh hatiku</li>
+    <li>Aku ingin kau mengerti, di jiwaku hanya kamu</li>
+    <li>Namun bila kau tak bisa menerima aku</li>
+    <li>Lebih baik ku hidup tanpa cinta</li>
+  </ul>
+  <div class="footer-text">rlzfxqr</div>
+</main>
+
+<div class="stickman-container" aria-hidden="true" role="presentation" id="stickmanContainer">
+  <!-- Female stickman center -->
+  <div class="stickman female stickman1" aria-hidden="true" style="left:50%; transform: translateX(-50%) translateX(0); opacity:1;">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="arm-left"></div>
+    <div class="arm-right"></div>
+    <div class="leg-left"></div>
+    <div class="leg-right"></div>
+  </div>
+  <!-- Male stickman walks in from left -->
+  <div class="stickman male stickman2" aria-hidden="true" style="left:0; transform: translateX(-120vw); opacity:1;">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="arm-left"></div>
+    <div class="arm-right"></div>
+    <div class="leg-left"></div>
+    <div class="leg-right"></div>
+  </div>
+</div>
+
+<!-- Heart break effect -->
+<div class="heart-container" id="heartContainer" aria-hidden="true" role="presentation" style="transform: translateX(-50%) scale(0);">
+  <div class="heart">
+    <div class="crack"></div>
+  </div>
+</div>
+
+<!-- Solid heart appears -->
+<div class="heart-container" id="heartAppears" aria-hidden="true" role="presentation" style="transform: translateX(-50%) scale(0);">
+  <div class="heart" style="background:#e91e63;"></div>
+</div>
+
+<script>
+const lyrics = document.querySelectorAll('#lyricsList li');
+let currentIndex = 0;
+
+const timings = [7000, 8000, 7000, 8000];
+
+const stickman1 = document.querySelector('.stickman1'); // female pink center static
+const stickman2 = document.querySelector('.stickman2'); // male purple walking
+
+const heartContainer = document.getElementById('heartContainer'); // broken heart
+const heartAppears = document.getElementById('heartAppears'); // solid heart
+
+// Initialize positions
+stickman1.style.left = '50%';
+stickman1.style.transform = 'translateX(calc(-50% + 10px))'; // shift female slightly right to be close
+stickman1.style.opacity = '1';
+
+stickman2.style.left = '0';
+stickman2.style.transform = 'translateX(-120vw)';
+stickman2.style.opacity = '1';
+
+heartContainer.style.transform = 'translateX(-50%) scale(0)';
+heartAppears.style.transform = 'translateX(-50%) scale(0)';
+
+function activateLine(index) {
+  lyrics.forEach((line,i) => {
+    if(i === index) {
+      line.classList.add('active');
+      line.setAttribute('aria-current','true');
+    } else {
+      line.classList.remove('active');
+      line.removeAttribute('aria-current');
+    }
+  });
+}
+
+function walkIn() {
+  stickman2.style.transition = 'transform 8s ease-in-out';
+  // Walk to slightly left of female stickman to be close (female slightly right)
+  stickman2.style.transform = 'translateX(calc(50vw - 57%))';
+}
+function walkOutPink() {
+  stickman1.style.transition = 'transform 4s ease-in, opacity 4s ease-in';
+  stickman1.style.transform = 'translateX(calc(-50% - 120vw))';
+  stickman1.style.opacity = '0';
+}
+function walkOutPurple() {
+  stickman2.style.transition = 'transform 4s ease-in, opacity 4s ease-in';
+  stickman2.style.transform = 'translateX(120vw)';
+  stickman2.style.opacity = '0';
+}
+function resetStickmen() {
+  stickman1.style.transition = 'none';
+  stickman1.style.transform = 'translateX(-50%)';
+  stickman1.style.opacity = '1';
+
+  stickman2.style.transition = 'none';
+  stickman2.style.transform = 'translateX(-120vw)';
+  stickman2.style.opacity = '1';
+}
+function showBrokenHeart() {
+  heartContainer.classList.add('heart-pop');
+  heartContainer.style.transform = 'translateX(-50%) scale(1)';
+  setTimeout(() => {
+    heartContainer.style.transform = 'translateX(-50%) scale(0)';
+    heartContainer.classList.remove('heart-pop');
+  }, 2500);
+}
+function showSolidHeart() {
+  heartAppears.classList.add('heart-pop');
+  heartAppears.style.transform = 'translateX(-50%) scale(1)';
+  setTimeout(() => {
+    heartAppears.style.transform = 'translateX(-50%) scale(0)';
+    heartAppears.classList.remove('heart-pop');
+  }, 2500);
+}
+function sway(enable) {
+  if(enable) {
+    stickman1.style.animation = 'sway 4s ease-in-out infinite';
+    stickman2.style.animation = 'sway 4s ease-in-out infinite';
+  } else {
+    stickman1.style.animation = 'none';
+    stickman2.style.animation = 'none';
+  }
+}
+function swaySingle(enable) {
+  if(enable) {
+    stickman1.style.animation = 'sway 4s ease-in-out infinite';
+  } else {
+    stickman1.style.animation = 'none';
+  }
+}
+
+function nextLine() {
+  activateLine(currentIndex);
+
+  if(currentIndex === 0) {
+    walkIn();
+    sway(false);
+  }
+
+  if(currentIndex === 1) {
+    showSolidHeart();
+    sway(true);
+  }
+
+  if(currentIndex === 2) {
+    swaySingle(true);
+    showBrokenHeart();
+    walkOutPink(); // Only pink stickman walks out
+  }
+
+  if(currentIndex === 3) {
+    // Purple stickman remains centered, pink stickman gone, remain sway on purple
+    swaySingle(true);
+    stickman2.style.transition = 'none';
+    stickman2.style.transform = 'translateX(calc(50vw - 50%))';
+    stickman2.style.opacity = '1';
+  }
+
+  setTimeout(() => {
+    currentIndex++;
+    if(currentIndex >= lyrics.length) {
+      sway(false);
+      resetStickmen();
+      heartContainer.style.transform = 'translateX(-50%) scale(0)';
+      heartAppears.style.transform = 'translateX(-50%) scale(0)';
+      setTimeout(() => {
+        currentIndex = 0;
+        nextLine();
+      }, 3000);
+    } else {
+      nextLine();
+    }
+  }, timings[currentIndex]);
+}
+
+setTimeout(nextLine, 1000);
+
+</script>
+
+<style>
+@keyframes sway {
+  0%,100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+</style>
+</body>
+</html>
+
